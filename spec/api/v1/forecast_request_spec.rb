@@ -28,7 +28,7 @@ describe 'Forecast Request' do
     expect(forecast[:data][:attributes][:current]).to have_key(:humidity)
     expect(forecast[:data][:attributes][:current][:humidity]).to be_an(Integer)
     expect(forecast[:data][:attributes][:current]).to have_key(:uvi)
-    expect(forecast[:data][:attributes][:current][:uvi]).to be_a(Integer)
+    expect(forecast[:data][:attributes][:current][:uvi]).to be_a(Float).or be_an(Integer)
     expect(forecast[:data][:attributes][:current]).to have_key(:visibility)
     expect(forecast[:data][:attributes][:current][:visibility]).to be_an(Integer)
     expect(forecast[:data][:attributes][:current]).to have_key(:conditions)
