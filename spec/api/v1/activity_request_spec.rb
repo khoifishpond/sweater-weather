@@ -31,7 +31,7 @@ describe 'Activity Request' do
       expect(activity).to have_key(:participants)
       expect(activity[:participants]).to be_an(Integer)
       expect(activity).to have_key(:price)
-      expect(activity[:price]).to be_a(Float)
+      expect(activity[:price]).to be_a(Float).or be_an(Integer)
     end
   end
 end

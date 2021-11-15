@@ -21,7 +21,6 @@ describe Activity do
     expect(result.forecast[:temperature]).to be_a(String)
 
     expect(result.activities).to be_an(Array)
-    require 'pry'; binding.pry
     expect(result.activities.count).to eq(2)
     result.activities.each do |activity|
       expect(activity).to have_key(:title)
