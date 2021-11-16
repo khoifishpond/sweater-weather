@@ -15,7 +15,7 @@ describe 'User Registration' do
     expect(user[:data]).to have_key(:id)
     expect(user[:data][:id]).to be_an(String)
     expect(user[:data]).to have_key(:type)
-    expect(user[:data][:type]).to eq('user')
+    expect(user[:data][:type]).to eq('users')
     expect(user[:data]).to have_key(:attributes)
     expect(user[:data][:attributes]).to have_key(:email)
     expect(user[:data][:attributes][:email]).to be_a(String)
