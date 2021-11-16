@@ -4,10 +4,18 @@ class Forecast
   def initialize(data)
     @id = nil
     @current = CurrentWeather.new(data[:current])
-    @daily = data[:daily][0..4].map do |day|
+    @daily = five_day_forecast(data)
+    @hourly = eight_hour_forecast(data)
+  end
+
+  def five_day_forecast(data)
+    data[:daily][0..4].map do |day|
       DailyWeather.new(day)
     end
-    @hourly = data[:hourly][0..7].map do |hour|
+  end
+
+  def eight_hour_forecast(data)
+    data[:hourly][0..7].map do |hour|
       HourlyWeather.new(hour)
     end
   end
