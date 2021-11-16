@@ -1,11 +1,16 @@
 require 'rails_helper'
 
-describe 'User Registration' do
-  it 'creates a user' do
-    post '/api/v1/users', params: {
+describe 'Sessions Request' do
+  it 'logs in a registered user' do
+    user_params = {
       email: 'yourname@email.com',
       password: 'password',
       password_confirmation: 'password'
+    }
+    User.create!(user_params)
+    post '/api/v1/sessions', params: {
+      email: 'yourname@email.com',
+      password: 'password'
     }
     user = JSON.parse(response.body, symbolize_names: true)
     
@@ -13,7 +18,7 @@ describe 'User Registration' do
     expect(user).to be_a(Hash)
     expect(user).to have_key(:data)
     expect(user[:data]).to have_key(:id)
-    expect(user[:data][:id]).to be_an(String)
+    expect(user[:data][:id]).to be_a(String)
     expect(user[:data]).to have_key(:type)
     expect(user[:data][:type]).to eq('users')
     expect(user[:data]).to have_key(:attributes)
