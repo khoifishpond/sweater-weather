@@ -18,16 +18,4 @@ class Api::V1::UsersController < ApplicationController
   def user_params
     params.permit(:email, :password, :password_confirmation)
   end
-
-  def error(status, message, code)
-    {
-      'errors': [
-        {
-          'status': status,
-          'message': message,
-          'code': code
-        }
-      ]
-    }
-  end
 end

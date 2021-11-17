@@ -8,18 +8,4 @@ class Api::V1::SessionsController < ApplicationController
       render json: error('Unauthorized', 'Incorrect credentials', 401)
     end
   end
-
-  private
-
-  def error(status, message, code)
-    {
-      'errors': [
-        {
-          'status': status,
-          'message': message,
-          'code': code
-        }
-      ]
-    }
-  end
 end
