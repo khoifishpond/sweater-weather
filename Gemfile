@@ -39,9 +39,6 @@ group :development, :test do
   gem 'simplecov'
   gem 'figaro'
   gem 'capybara'
-  gem 'launchy'
-  gem 'vcr'
-  gem 'webmock'
   gem 'shoulda-matchers'
 end
 
