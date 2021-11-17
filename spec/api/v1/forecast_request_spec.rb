@@ -36,6 +36,13 @@ describe 'Forecast Request' do
     expect(forecast[:data][:attributes][:current]).to have_key(:icon)
     expect(forecast[:data][:attributes][:current][:icon]).to be_a(String)
 
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:pressure)
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:dew_point)
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:clouds)
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:wind_speed)
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:wind_deg)
+    expect(forecast[:data][:attributes][:current]).to_not have_key(:wind_gust)
+
     expect(forecast[:data][:attributes]).to have_key(:daily)
     expect(forecast[:data][:attributes][:daily]).to be_an(Array)
     expect(forecast[:data][:attributes][:daily].count).to eq(5)
@@ -54,6 +61,12 @@ describe 'Forecast Request' do
       expect(day[:conditions]).to be_a(String)
       expect(day).to have_key(:icon)
       expect(day[:icon]).to be_a(String)
+      expect(day).to_not have_key(:pressure)
+      expect(day).to_not have_key(:dew_point)
+      expect(day).to_not have_key(:clouds)
+      expect(day).to_not have_key(:wind_speed)
+      expect(day).to_not have_key(:wind_deg)
+      expect(day).to_not have_key(:wind_gust)
     end
 
     expect(forecast[:data][:attributes]).to have_key(:hourly)
@@ -68,6 +81,12 @@ describe 'Forecast Request' do
       expect(hour[:conditions]).to be_a(String)
       expect(hour).to have_key(:icon)
       expect(hour[:icon]).to be_a(String)
+      expect(hour).to_not have_key(:pressure)
+      expect(hour).to_not have_key(:dew_point)
+      expect(hour).to_not have_key(:clouds)
+      expect(hour).to_not have_key(:wind_speed)
+      expect(hour).to_not have_key(:wind_deg)
+      expect(hour).to_not have_key(:wind_gust)
     end
   end
 end
