@@ -5,9 +5,9 @@ class MapFacade
   end
 
   def self.roadtrip(start_city, end_city)
-    data = MapService.get_directions(start_city, end_city)[:route]
+    data = MapService.get_directions(start_city, end_city)
     destination = MapFacade.lat_long(end_city)
     forecast = WeatherFacade.forecast(destination.lat, destination.long)
-    RoadTrip.new(data, forecast)
+    RoadTrip.new(data, forecast, start_city, end_city)
   end
 end

@@ -8,7 +8,7 @@ describe 'Roadtrip Request' do
       api_key: 'jgn983hy48thw9begh98h4539h4'
     }
     roadtrip = JSON.parse(response.body, symbolize_names: true)
-
+    
     expect(response).to be_successful
     expect(roadtrip).to have_key(:data)
     expect(roadtrip[:data]).to have_key(:id)
