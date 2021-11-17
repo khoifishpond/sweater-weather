@@ -89,4 +89,20 @@ describe 'Forecast Request' do
       expect(hour).to_not have_key(:wind_gust)
     end
   end
+
+  describe 'Sad Path' do
+    it 'shows an error without a location' do
+      get '/api/v1/forecast'
+      error = JSON.parse(response.body, symbolize_names: true)
+
+      expect(error).to have_key(:errors)
+      expect(error[:errors]).to be_an(Array)
+      expect(error[:errors][0]).to have_key(:status)
+      expect(error[:errors][0][:status]).to eq('Bad Request')
+      expect(error[:errors][0]).to have_key(:message)
+      expect(error[:errors][0][:message]).to eq('Location is required')
+      expect(error[:errors][0]).to have_key(:code)
+      expect(error[:errors][0][:code]).to eq(400)
+    end
+  end
 end

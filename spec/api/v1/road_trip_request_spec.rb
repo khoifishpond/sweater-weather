@@ -28,4 +28,40 @@ describe 'Roadtrip Request' do
     expect(roadtrip[:data][:attributes][:weather_at_eta]).to have_key(:conditions)
     expect(roadtrip[:data][:attributes][:weather_at_eta][:conditions]).to be_a(String)
   end
+
+  describe 'Sad Path' do
+    it 'shows an error without an origin or destination location' do
+      post '/api/v1/road_trip', params: {
+        origin: 'Denver, CO',
+        api_key: 'jgn983hy48thw9begh98h4539h4'
+      }
+      error = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error).to have_key(:errors)
+      expect(error[:errors]).to be_an(Array)
+      expect(error[:errors][0]).to have_key(:status)
+      expect(error[:errors][0][:status]).to eq('Bad Request')
+      expect(error[:errors][0]).to have_key(:message)
+      expect(error[:errors][0][:message]).to eq('Origin and Destination locations are required')
+      expect(error[:errors][0]).to have_key(:code)
+      expect(error[:errors][0][:code]).to eq(400)
+    end
+
+    it 'shows an error without an api key' do
+      post '/api/v1/road_trip', params: {
+        origin: 'Denver, CO',
+        destination: 'Pueblo, CO'
+      }
+      error = JSON.parse(response.body, symbolize_names: true)
+      
+      expect(error).to have_key(:errors)
+      expect(error[:errors]).to be_an(Array)
+      expect(error[:errors][0]).to have_key(:status)
+      expect(error[:errors][0][:status]).to eq('Unauthorized')
+      expect(error[:errors][0]).to have_key(:message)
+      expect(error[:errors][0][:message]).to eq('API key is required')
+      expect(error[:errors][0]).to have_key(:code)
+      expect(error[:errors][0][:code]).to eq(401)
+    end
+  end
 end
