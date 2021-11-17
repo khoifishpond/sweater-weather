@@ -64,4 +64,31 @@ describe 'Roadtrip Request' do
       expect(error[:errors][0][:code]).to eq(401)
     end
   end
+    
+  describe 'Edge Case' do
+    it 'does not provide a travel time nor weather info for an imposible route' do
+      post '/api/v1/road_trip', params: {
+        origin: 'New York, NY',
+        destination: 'London, UK',
+        api_key: 'jgn983hy48thw9begh98h4539h4'
+      }
+      roadtrip = JSON.parse(response.body, symbolize_names: true)
+
+      expect(response).to be_successful
+      expect(roadtrip).to have_key(:data)
+      expect(roadtrip[:data]).to have_key(:id)
+      expect(roadtrip[:data][:id]).to eq(nil)
+      expect(roadtrip[:data]).to have_key(:type)
+      expect(roadtrip[:data][:type]).to eq('roadtrip')
+      expect(roadtrip[:data]).to have_key(:attributes)
+      expect(roadtrip[:data][:attributes]).to have_key(:start_city)
+      expect(roadtrip[:data][:attributes][:start_city]).to eq('New York, NY')
+      expect(roadtrip[:data][:attributes]).to have_key(:end_city)
+      expect(roadtrip[:data][:attributes][:end_city]).to eq('London, UK')
+      expect(roadtrip[:data][:attributes]).to have_key(:travel_time)
+      expect(roadtrip[:data][:attributes][:travel_time]).to eq('Impossible')
+      expect(roadtrip[:data][:attributes]).to have_key(:weather_at_eta)
+      expect(roadtrip[:data][:attributes][:weather_at_eta]).to eq({})
+    end
+  end
 end
