@@ -1,19 +1,31 @@
 class RoadTrip
   attr_reader :id, :start_city, :end_city, :travel_time, :weather_at_eta
 
-  def initialize(data, forecast)
+  def initialize(data, forecast, start_city, end_city)
     @id = nil
-    @start_city = data[:locations][0][:adminArea5] + ", " + data[:locations][0][:adminArea3]
-    @end_city = data[:locations][1][:adminArea5] + ", " + data[:locations][1][:adminArea3]
-    @travel_time = data[:formattedTime]
-    @weather_at_eta = format_weather(forecast)
+    @start_city = start_city
+    @end_city = end_city
+    @travel_time = format_travel_time(data)
+    @weather_at_eta = format_weather(data, forecast)
   end
 
-  def format_weather(forecast)
-    {
-      temperature: forecast.hourly[at_hour].temperature,
-      conditions: forecast.hourly[at_hour].conditions
-    }
+  def format_travel_time(data)
+    if data[:info][:statuscode] == 0
+      data[:route][:formattedTime]
+    else
+      'Impossible'
+    end
+  end
+
+  def format_weather(data, forecast)
+    if data[:info][:statuscode] == 0
+      {
+        temperature: forecast.all_hours[at_hour][:temp],
+        conditions: forecast.all_hours[at_hour][:weather][0][:description]
+      }
+    else
+      {}
+    end
   end
 
   def at_hour
