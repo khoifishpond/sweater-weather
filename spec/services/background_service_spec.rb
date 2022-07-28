@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe BackgroundService do
   it 'gets a background image from a location' do
-    response = BackgroundService.get_data('denver,co')
+    response = BackgroundService.get_data('los angeles,ca')
 
     expect(response).to be_a(Hash)
     expect(response).to have_key(:results)

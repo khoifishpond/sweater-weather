@@ -10,7 +10,7 @@ class Background
 
   def format_image(data)
     {
-      location: "#{data[:results][0][:tags][0][:title]},#{data[:results][0][:tags][1][:title]}",
+      location: "#{data[:results][0][:tags][1][:title]},#{data[:results][0][:tags][0][:title]}",
       image_url: data[:results][0][:urls][:full],
       credit: {
         author: data[:results][0][:user][:username],
