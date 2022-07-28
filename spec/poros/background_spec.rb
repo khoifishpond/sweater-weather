@@ -9,7 +9,7 @@ describe Background do
     expect(background).to be_a(Background)
     expect(background.id).to eq(nil)
     expect(background.image).to be_a(Hash)
-    expect(background.image[:location]).to eq("#{data[:results][0][:tags][0][:title]},#{data[:results][0][:tags][1][:title]}")
+    expect(background.image[:location]).to eq("#{data[:results][0][:tags][1][:title]},#{data[:results][0][:tags][0][:title]}")
     expect(background.image[:image_url]).to eq(data[:results][0][:urls][:full])
     expect(background.image[:credit]).to be_a(Hash)
     expect(background.image[:credit][:author]).to eq(data[:results][0][:user][:username])
