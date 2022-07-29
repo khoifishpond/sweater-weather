@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe Background do
   it 'exists' do
-    params = {query: 'los angeles,ca'}
+    params = {query: 'golden,co'}
     data = BackgroundService.get_data(params[:query])
     background = Background.new(data)
 

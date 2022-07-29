@@ -2,7 +2,7 @@ require 'rails_helper'
 
 describe 'Backgrounds Request' do
   it 'gets a background image for a location' do
-    get '/api/v1/backgrounds?location=los angeles,ca'
+    get '/api/v1/backgrounds?location=golden,co'
     background = JSON.parse(response.body, symbolize_names: true)
 
     expect(response).to be_successful
